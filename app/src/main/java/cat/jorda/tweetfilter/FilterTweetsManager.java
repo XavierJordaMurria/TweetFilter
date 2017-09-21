@@ -4,9 +4,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import cat.jorda.tweetfilter.model.TweetItem;
 import twitter4j.FilterQuery;
 import twitter4j.StallWarning;
@@ -20,7 +17,7 @@ import twitter4j.conf.ConfigurationBuilder;
  * Created by xj1 on 19/09/2017.
  */
 
-public class FilterTweetsManager implements StatusListener
+class FilterTweetsManager implements StatusListener
 {
     private final static String TAG = FilterTweetsManager.class.getSimpleName();
     private TwitterStream mTwitterStream;
@@ -28,12 +25,12 @@ public class FilterTweetsManager implements StatusListener
 
     final Handler mMainThreadHandler = new Handler(Looper.getMainLooper());
 
-    public interface IFilterTweetsListener
+    interface IFilterTweetsListener
     {
         void onFilteredTweets(TweetItem filteredTweet);
     }
 
-    public FilterTweetsManager(IFilterTweetsListener listener)
+    FilterTweetsManager(IFilterTweetsListener listener)
     {
         Log.d(TAG, "FilterTweetsManager constructor");
 
@@ -49,7 +46,7 @@ public class FilterTweetsManager implements StatusListener
         mTwitterStream = new TwitterStreamFactory(cb.build()).getInstance();
     }
 
-    public void start(String[] keywords)
+    void start(String[] keywords)
     {
         FilterQuery fq = new FilterQuery();
 
@@ -59,18 +56,16 @@ public class FilterTweetsManager implements StatusListener
         mTwitterStream.filter(fq);
     }
 
-    public void stopStreaming()
+    void stopStreaming()
     {
-        Handler handler = new Handler();
-
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                mTwitterStream.cleanUp(); // shutdown internal stream consuming thread
-                mTwitterStream.shutdown(); // Shuts down internal dispatcher thread shared by all TwitterStream instances.
-            }
-        });
-
+        try {
+            mTwitterStream.cleanUp(); // shutdown internal stream consuming thread
+            mTwitterStream.shutdown(); // Shuts down internal dispatcher thread shared by all TwitterStream instances.
+        }
+        catch(Exception e)
+        {
+            Log.e(TAG, "stopStreaming e:" + e);
+        }
     }
 
     @Override
@@ -81,8 +76,6 @@ public class FilterTweetsManager implements StatusListener
     @Override
     public void onStatus(twitter4j.Status status) {
         Log.d(TAG, "onStatus " + status.getText());
-
-//        collected_.add(new TweetItem(status.getId(), status.getText(), status.getCreatedAt()));
         TweetItem tweetItem = new TweetItem(status.getId(), status.getText(), status.getCreatedAt());
         dispatchToMainThread(tweetItem);
     }
