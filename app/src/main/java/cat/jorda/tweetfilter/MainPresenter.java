@@ -51,6 +51,9 @@ public class MainPresenter implements MainContract.IMainPresenter, FilterTweetsM
     public void setNewFilter(String[] filterKeyWords)
     {
         mFilterKeyWords = filterKeyWords;
+
+        if (mAdapter != null)
+            mAdapter.removeAll();
     }
 
     @Override

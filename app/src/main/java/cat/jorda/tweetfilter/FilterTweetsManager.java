@@ -51,7 +51,6 @@ public class FilterTweetsManager implements StatusListener
 
     public void start(String[] keywords)
     {
-
         FilterQuery fq = new FilterQuery();
 
         fq.track(keywords);

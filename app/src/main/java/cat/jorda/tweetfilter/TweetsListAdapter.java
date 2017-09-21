@@ -69,6 +69,12 @@ public class TweetsListAdapter extends RecyclerView.Adapter<TweetsListAdapter.Cu
         notifyDataSetChanged();
     }
 
+    void removeAll()
+    {
+        mTweetItemList.clear();
+        notifyDataSetChanged();
+    }
+
     /**
      * Add a single item to the front of the adapter's inner list, and notifies of a data set has been changed.
      * @param filteredTweet item to be added.
