@@ -13,6 +13,8 @@ interface MainContract
          * @param adapter adapter set up.
          */
         void onAdapterSet(TweetsListAdapter adapter);
+
+        void stopProgressBar();
     }
 
     interface IMainPresenter

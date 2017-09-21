@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,9 +22,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.IMai
     private final static String TAG = MainActivity.class.getSimpleName();
 
     private RecyclerView mRecyclerView;
+    private TextView emptyView;
 
     private String mFilterKeyWord;
     private EditText mFilterET;
+    private ProgressBar mProgressBar;
 
     private MainContract.IMainPresenter mPresenter;
 
@@ -37,6 +40,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.IMai
         setContentView(R.layout.activity_main);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.tweets_list);
+        emptyView = (TextView) findViewById(R.id.empty_view);
+        emptyView.setVisibility(View.VISIBLE);
+
+        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
+
         mFilterET   = (EditText) findViewById(R.id.filter);
 
         mFilterET.setOnFocusChangeListener(new View.OnFocusChangeListener()
@@ -69,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.IMai
                     mPresenter.startTweetStreaming();
                     mFilterET.setText(filterText);
                     hideSoftKeyboard(MainActivity.this);
-
+                    mProgressBar.setVisibility(View.VISIBLE);
                     return true;
                 }
                 return false;
@@ -130,6 +138,13 @@ public class MainActivity extends AppCompatActivity implements MainContract.IMai
     @Override
     public void onAdapterSet(TweetsListAdapter adapter)
     {
+        emptyView.setVisibility(View.GONE);
         mRecyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void stopProgressBar()
+    {
+        mProgressBar.setVisibility(View.GONE);
     }
 }

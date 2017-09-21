@@ -51,6 +51,9 @@ public class MainPresenter implements MainContract.IMainPresenter, FilterTweetsM
     public void setNewFilter(String[] filterKeyWords)
     {
         mFilterKeyWords = filterKeyWords;
+        mFilterTweetsManager.stopStreaming();
+        mTweetItemToBeRemovedList.clear();
+        mBufferUpTweets.clear();
 
         if (mAdapter != null)
             mAdapter.removeAll();
@@ -99,6 +102,7 @@ public class MainPresenter implements MainContract.IMainPresenter, FilterTweetsM
     @Override
     public void onFilteredTweets(TweetItem filteredTweet)
     {
+        mMainView.stopProgressBar();
         synchronized(mListLock)
         {
             if (mAdapter == null)

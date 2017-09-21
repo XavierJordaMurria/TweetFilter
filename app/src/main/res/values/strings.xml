@@ -5,4 +5,5 @@
     <string name="enter_filter">Enter filter</string>
     <string name="filtering_by">Filtering by: </string>
     <string name="tweet_filter_string_tweet_text">Tweet filter @string/tweet_text</string>
+    <string name="no_tweets_received_yet">No Tweets Received yet! :(</string>
 </resources>
