@@ -2,12 +2,12 @@ package cat.jorda.tweetfilter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import cat.jorda.tweetfilter.model.TweetItem;
@@ -18,13 +18,12 @@ import cat.jorda.tweetfilter.model.TweetItem;
 
 public class TweetsListAdapter extends RecyclerView.Adapter<TweetsListAdapter.CustomViewHolder>
 {
+    private final static String TAG = TweetsListAdapter.class.getSimpleName();
     private List<TweetItem> mTweetItemList;
-    private Context mContext;
 
-    public TweetsListAdapter(Context context, List<TweetItem> tweetItemList)
+    public TweetsListAdapter(List<TweetItem> tweetItemList)
     {
         mTweetItemList = tweetItemList;
-        mContext = context;
     }
 
     @Override
@@ -51,14 +50,9 @@ public class TweetsListAdapter extends RecyclerView.Adapter<TweetsListAdapter.Cu
         return (null != mTweetItemList ? mTweetItemList.size() : 0);
     }
 
-    public void reloadList(List<TweetItem> filteredTweetList)
-    {
-        mTweetItemList.addAll(filteredTweetList);
-        notifyDataSetChanged();
-    }
-
     public void removeListOfTweets(List<TweetItem> listOfTweetsToBeRemoved)
     {
+        Log.d(TAG,"removeListOfTweets #" + listOfTweetsToBeRemoved.size());
         mTweetItemList.removeAll(listOfTweetsToBeRemoved);
         notifyDataSetChanged();
     }
@@ -77,6 +71,7 @@ public class TweetsListAdapter extends RecyclerView.Adapter<TweetsListAdapter.Cu
 
     public void addListOfTweets(List<TweetItem> listOfTweets)
     {
+        Log.d(TAG,"addListOfTweets #" + listOfTweets.size());
         mTweetItemList.addAll(listOfTweets);
         notifyDataSetChanged();
     }
