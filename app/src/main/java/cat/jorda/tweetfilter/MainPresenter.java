@@ -143,6 +143,9 @@ public class MainPresenter implements MainContract.IMainPresenter, FilterTweetsM
         }, TWEET_LIFE_SPAN);
     }
 
+    /**
+     * BroadCastReceiver set to receive information from the ConnectivityManager.CONNECTIVITY_ACTION
+     */
     private class ConnectivityChangeReceiver
             extends BroadcastReceiver
     {

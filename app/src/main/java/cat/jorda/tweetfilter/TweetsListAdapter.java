@@ -1,6 +1,5 @@
 package cat.jorda.tweetfilter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.List;
-
 import cat.jorda.tweetfilter.model.TweetItem;
 
 /**
@@ -50,32 +48,51 @@ public class TweetsListAdapter extends RecyclerView.Adapter<TweetsListAdapter.Cu
         return (null != mTweetItemList ? mTweetItemList.size() : 0);
     }
 
-    public void removeListOfTweets(List<TweetItem> listOfTweetsToBeRemoved)
+    /**
+     * Removes a list of items into the adapter's inner list, and notifies of a data set has been changed.
+     * @param listOfTweetsToBeRemoved list to be removed.
+     */
+    void removeListOfTweets(List<TweetItem> listOfTweetsToBeRemoved)
     {
         Log.d(TAG,"removeListOfTweets #" + listOfTweetsToBeRemoved.size());
         mTweetItemList.removeAll(listOfTweetsToBeRemoved);
         notifyDataSetChanged();
     }
 
-    public void removeItem(TweetItem tweetsToBeRemoved)
+    /**
+     * Removes the passed item from the inner adapter list, and notifies of a data set has been changed.
+     * @param tweetsToBeRemoved Item to be removed.
+     */
+    void removeItem(TweetItem tweetsToBeRemoved)
     {
         mTweetItemList.remove(tweetsToBeRemoved);
         notifyDataSetChanged();
     }
 
-    public void addItemInFront(TweetItem filteredTweet)
+    /**
+     * Add a single item to the front of the adapter's inner list, and notifies of a data set has been changed.
+     * @param filteredTweet item to be added.
+     */
+    void addItemInFront(TweetItem filteredTweet)
     {
         mTweetItemList.add(0, filteredTweet);
         notifyItemInserted(0);
     }
 
-    public void addListOfTweets(List<TweetItem> listOfTweets)
+    /**
+     * Adds a list of items into the adapter's inner list, and notifies of a data set has been changed.
+     * @param listOfTweets list to be added.
+     */
+    void addListOfTweets(List<TweetItem> listOfTweets)
     {
         Log.d(TAG,"addListOfTweets #" + listOfTweets.size());
         mTweetItemList.addAll(listOfTweets);
         notifyDataSetChanged();
     }
 
+    /**
+     * View holder holding the UI components from the tweet_item.xml
+     */
     class CustomViewHolder extends RecyclerView.ViewHolder
     {
         TextView mTweetText;

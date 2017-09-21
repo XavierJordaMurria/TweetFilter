@@ -1,8 +1,10 @@
 
 # TweetsFilter
 This will stream filtered tweets from Twitter using its API hbc-twitter4j.
-
-## Technical Requirements
+## Need to add your own Customer_(Key/Secret) Token_(Key/Secret) to make the Twitter API work.
+## Technical specifications
+* Using MVP architecture.
+* Stoping updating the RecyclerView when the user is touching it. So it improves the readibility.
 * Get Twitter’s public feed using its streaming API: https://stream.twitter.com/1.1/statuses/filter.json
 * Search for a word provided by the user. That should produce a flow of data big enough for our purposes.
 * Once collected, the tweets will be included in a RecyclerView.

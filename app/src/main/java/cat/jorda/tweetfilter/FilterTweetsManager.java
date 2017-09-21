@@ -47,7 +47,6 @@ public class FilterTweetsManager implements StatusListener
         cb.setOAuthAccessTokenSecret(Constants.ACCESS_TOKEN_SECRET);
 
         mTwitterStream = new TwitterStreamFactory(cb.build()).getInstance();
-
     }
 
     public void start(String[] keywords)
