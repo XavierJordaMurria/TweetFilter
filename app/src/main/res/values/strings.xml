@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">TweetFilter</string>
+    <string name="_21_02_2017">21/02/2017</string>
+    <string name="tweet_text">Tweet text</string>
+    <string name="enter_filter">Enter filter</string>
+    <string name="filtering_by">Filtering by: </string>
+    <string name="tweet_filter_string_tweet_text">Tweet filter @string/tweet_text</string>
+</resources>
